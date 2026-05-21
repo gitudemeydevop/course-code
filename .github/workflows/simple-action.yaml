@@ -11,6 +11,6 @@ jobs:
               with:
                 who-to-greet: toxy
             - name: Log greeeting time
-              run: echo "{{ steps.greet.outputs.time)}}"
+              run: echo "${{ steps.greet.outputs.time}}"
             
               
