@@ -29,7 +29,7 @@ on:
             type: environment
             required: true
       
-
+# gh workflow run manually-triggerd.yaml - f string="from gh cli" -f environment=production --ref main  to trigger the workflow from the command line interface (CLI) .
 
 jobs:
     log-info:
