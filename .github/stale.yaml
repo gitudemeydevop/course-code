@@ -1,0 +1,17 @@
+name: stale Issue and Pull Request
+
+on:
+  schedule:
+    - cron: "0 14 * * * " # runs every day at 14.00 UTC
+    - cron: "0/5 * * * * " # runs every 5 minutes   just for testing  
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v10
+        with:
+          stale-issue-message: 'This is some message'
+          days-before-stale: 1 # how many days of inactivity before an issue becomes stale
+          days-before-close: 5 # how many days a stale issue will remain stale before it gets closed
+     
