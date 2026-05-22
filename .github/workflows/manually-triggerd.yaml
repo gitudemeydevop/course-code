@@ -1,6 +1,34 @@
 name: Manually Triggerd
 on:
   workflow_dispatch: #adds a button to run the workflow manually from the GitHub UI
+    inputs:
+        string:
+            description: A string input
+            type: string
+            required: true
+            default: 'default value'
+        number:
+            description: A number input
+            default: 4
+            type: number
+        option:
+            description: "An Options Input"
+            required: true
+            default: "Option 3"
+            type: choice
+            options:
+            - Option 1
+            - Option 2
+            - Option 3
+        boolean:
+            description: A boolean option
+            required: false
+            type: boolean
+        environment:
+            description: "Environment"
+            type: environment
+            required: true
+      
 
 
 jobs:
@@ -8,3 +36,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - run: echo $GITHUB_REF
+            - run: |
+                echo "String input: ${{ github.event.inputs.string }}"
+                echo "Number input: ${{ github.event.inputs.number }}"
+                echo "Option input: ${{ github.event.inputs.option }}"
+                echo "Boolean input: ${{ github.event.inputs.boolean }}"
+                echo "Environment input: ${{ github.event.inputs.environment }}"
