@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/stale@v8
         with:
-          stale-issue-message: 'This is some message'
+          stale-issue-message: "This is some message"
           days-before-stale: 1 # how many days of inactivity before an issue becomes stale
           days-before-close: 5 # how many days a stale issue will remain stale before it gets closed
      
