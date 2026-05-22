@@ -1,6 +1,7 @@
 name: External events
 on:
   repository_dispatch:
+    types: [build]
 #must be pushed to default branch ( main branch ) otherwise it wont work
 jobs:
     echo-a-string:
