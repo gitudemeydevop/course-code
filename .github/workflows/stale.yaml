@@ -2,7 +2,7 @@ name: stale Issue and Pull Request
 
 on:
   schedule:
-    - cron: "0/5 * * * *" # runs every 5 minutes   just for testing
+    - cron: "*/5 * * * *" # runs every 5 minutes   just for testing
 
 jobs:
   stale:
