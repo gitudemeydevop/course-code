@@ -1,8 +1,30 @@
 name: repository events
 on:
     push:
+        branches:
+            - main
+            - "feature/*" #matches any branch that starts with feature/featA or featB but does not match feature/featA/ or feature/featB/
+            - "feature/**" #matches any branch that starts with feature/featA or featB and also matches feature/featA/ or feature/featB/
+            - "!feature/featA" #matches any branch that does not start with feature/featA  excludes that 
+            #the order is important keep exclude after include otherwise it will not work
+        #brnaches-ignore: ** cant use brancnhes-ignore with branches
+        #    - develop
+        tags:
+            - "v1.*" #matches v1.1 , v1.1.2
+            - "!v1.1.1" #matches any tag that does not match v1.1.1
+
+        paths:
+            - "**.js" #matches any js file in the repository
+            - "!app.js" #excludes app.js file from triggering the workflow
+# all of these must be true for the workflow to trigger(branches, tags and paths)
     pull_request:
         types: [opened, synchronize, reopened,assigned]
+        branches:
+            - main
+        paths:
+            - "**.js" #matches any js file in the repository
+#this means that the workflow will only trigger for pull request that include a change in js file and target main branch 
+#cant use tags with pull request event
     issues:
         types: [opened]    
 
