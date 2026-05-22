@@ -1,0 +1,10 @@
+name: Manually Triggerd
+on:
+  workflow_dispatch: #adds a button to run the workflow manually from the GitHub UI
+
+
+jobs:
+    log-info:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo $GITHUB_REF
