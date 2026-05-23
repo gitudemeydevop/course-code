@@ -16,7 +16,7 @@ jobs:
               run: echo "This step runs only if all the previous steps have succeeded"
             - name: run always
               if: always() # this step will run regardless of the outcome of the previous steps in the job and works if workflow is cancaled
-              run: echo "This step runs regardless of the outcome of the previous steps in the job
+              run: echo "This step runs regardless of the outcome of the previous steps in the job"
             - name: run when cancelled
               if: cancelled() # this step will run only if the workflow run is cancelled
               run: echo "This step runs only if the workflow run is cancelled"
