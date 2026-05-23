@@ -4,6 +4,7 @@ run-name: "Expression and Contexts by @${{github.actor}}, event: ${{github.event
 jobs:
     using-expressions-and-contexts:
         runs-on: ubuntu-latest
+        if: github.event_name == 'push'  #if key can be put in a job level or step level, it also supports expressions
         steps:
             - name: Expressions
               id: expressions
