@@ -1,0 +1,29 @@
+name: status check Functions
+on: [push]
+
+jobs:
+    job-1:
+        runs-on: ubuntu-latest
+        steps:
+            - name: step 1
+              run: sleep 20 
+            - name: run on failure
+              if: failure() # this step will run only if any of the previous steps in the job have failed
+              run: echo "This step runs only if any of the previous steps have failed"
+            - name: run on success
+            # this is not needed  cause its a default behaviour
+              if: success() # this step will run only if all the previous steps in the job have succeeded
+              run: echo "This step runs only if all the previous steps have succeeded"
+            - name: run always
+              if: always() # this step will run regardless of the outcome of the previous steps in the job and works if workflow is cancaled
+              run: echo "This step runs regardless of the outcome of the previous steps in the job
+            - name: run when cancelled
+              if: cancelled() # this step will run only if the workflow run is cancelled
+              run: echo "This step runs only if the workflow run is cancelled"
+              
+    job-2:
+        runs-on: ubuntu-latest
+        needs: job-1
+        if: failure() 
+        steps:
+            - run: echo "job2"
