@@ -2,6 +2,15 @@ name: Expressions and Contexts
 on: [push, pull_request, issues, workflow_dispatch]
 run-name: "Expression and Contexts by @${{github.actor}}, event: ${{github.event_name}}"
 jobs:
+    runs-on-issues-and-prs:
+        runs-on: ubuntu-latest
+        if: contains(fromJson('["issues","pull_request"]'), github.event_name) #contains function can be used to check if the event that triggered the workflow is either issues or pull_request
+        steps:
+            - name: run only on has a bug  label
+              if: contains(github.event.issue.labels.*.name, 'bug') 
+              # looking into an object (issue) and then into an array (labels) and then into all the name properties of the labels to check if it contains a specific label
+              #it's called an object filtering syntax
+              run: echo ${{ join(github.event.issue.labels.*.name, ',') }} # echoing a comma seperated list of all our lables using join function
     using-expressions-and-contexts:
         runs-on: ubuntu-latest
         if: github.event_name == 'push'  #if key can be put in a job level or step level, it also supports expressions
