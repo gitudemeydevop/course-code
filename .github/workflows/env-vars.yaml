@@ -1,11 +1,28 @@
 name: Environment Variables
 on: [push]
 
+env: 
+  WF_LEVEL_ENV: Available to all jobs
+
 jobs:
     env-vars-and-context:
         runs-on: ubuntu-latest
+        # if: $GITHUB_REF == 'refs/heads/main'  DONT DO THIS because if part is processed by github befor being sent to the runner maschine
+        if: github.ref == 'refs/heads/main'
+        env:
+          JOB_LEVEL_ENV: Available to all steps in this job
         steps:
             - name: log env var
               run: echo $GITHUB_REF #envirment variables run on the runner maschine
             - name: log Context
-              run: echo '{{github.ref}}' # this part will be evaluted by github then sent to the runner maschine
+              run: echo '{{github.ref}}' # this expression part will be evaluted by github then sent to the runner maschine
+
+            - name: log Custom env var 
+              env:
+                STEP_LEVEL_ENV: Available only to this step
+                WF_LEVEL_ENV: Available to all jobs but overridden in this step
+              run: |
+                echo '${{ env.STEP_LEVEL_ENV }}'
+                echo $STEP_LEVEL_ENV
+                echo $WF_LEVEL_ENV
+                echo $JOB_LEVEL_ENV
