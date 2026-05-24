@@ -23,7 +23,7 @@ jobs:
 
             - name: Multiple env vars
               run: |
-                DELIMITER=1234
+                DELIMITER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64) # create a random string to be used as a delimiter for the multi line env var
                 
                 echo "RANDOM_JOKE<<$DELIMITER" >> "$GITHUB_ENV"
                 echo "here is a random joke : " >> "$GITHUB_ENV"
