@@ -20,6 +20,7 @@ jobs:
               run: |
                 echo "NEW_ENV_VAR=$(date)" >> "$GITHUB_ENV" # this is how you set env var in one step to be used in the next steps
                 echo "JOB_LEVEL_ENV=$RANDOM" >> "$GITHUB_ENV"
+                
             - name: Multiple env vars
               run: |
                 DELIMITER = 1234
@@ -30,14 +31,6 @@ jobs:
                 echo "">> "$GITHUB_ENV"
                 echo "$DELIMITER" >> "$GITHUB_ENV"
                 
-
-
-              run: |
-                echo '${{ env.STEP_LEVEL_ENV }}'
-                echo $STEP_LEVEL_ENV
-                echo $WF_LEVEL_ENV
-                echo $JOB_LEVEL_ENV
-                echo $NEW_ENV_VAR
 
             - name: log Custom env var 
               env:
