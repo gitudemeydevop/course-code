@@ -18,8 +18,8 @@ jobs:
               run: echo '{{github.ref}}' # this expression part will be evaluted by github then sent to the runner maschine
             - name: Set Env var
               run: |
-              echo "NEW_ENV_VAR=$(date)" >> "$GITHUB_ENV" # this is how you set env var in one step to be used in the next steps
-              echo "JOB_LEVEL_ENV=$RANDOM" >> "$GITHUB_ENV"
+                echo "NEW_ENV_VAR=$(date)" >> "$GITHUB_ENV" 
+                echo "JOB_LEVEL_ENV=$RANDOM" >> "$GITHUB_ENV"
 
 
             - name: log Custom env var 
