@@ -14,7 +14,7 @@ on: [push]
 
 jobs:
     node-matrix:
-        continue-on-error: false # this will make the workflow fail if any of the matrix runs fail, instead of waiting for all the runs to complete and then marking the workflow as failed if any of the runs have failed
+        continue-on-error: ${{ matrix.experimental == true }} # this will make the workflow fail if any of the matrix runs fail, instead of waiting for all the runs to complete and then marking the workflow as failed if any of the runs have failed
         strategy:
             matrix:
                 os: [ubuntu-latest, windows-latest]
