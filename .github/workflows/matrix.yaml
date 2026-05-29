@@ -4,14 +4,32 @@ on: [push]
 
 jobs:
     node-matrix:
-        
+        continue-on-error: false
         strategy:
             matrix:
                 os: [ubuntu-latest, windows-latest]
                 node-version: [14, 15, 16]
+                include:
+                    - os: ubuntu-latest 
+                      is-ubuntu: true # this will just add a  new key to all ubuntu runs  : is-ubuntu == true ( this will merge)
+                    - os: macos-latest
+                      node-version: 15 # this will add a new run with macos-latest and node version 15 ' wont merge like the other one cause we never had an item that runs on mac os  so it creates one . 
+                    - experimental: false   # wont override and wont add a new run  but it will be merged with all  the original matrix combinations
+                    - os: ubuntu-latest
+                      node-version: 16 
+                      experimental: true #this will just change experimental value for the ubuntu os that runs node version 16 to true and it will be merged with the original matrix combination that has ubuntu-latest and node version 16
+                    - os: ubuntu-latest
+                      node-version: 17 
+                exclude:
+                    - os: ubuntu-latest 
+                      node-version: 14 # this will exclude the run that has ubuntu-latest and node version 14 from the matrix and it wont run at all
+
+            fail-fast: false # this will allow all the jobs in the matrix to run even if one of them fails, by default if one job in the matrix fails, the rest of the jobs will be cancelled and marked as failed, but with fail-fast set to false, all the jobs will run and you can see the results of each job in the matrix even if one of them fails
+            #max-parallel: 3 # this will limit the number of parallel jobs to 2, even if there are more combinations in the matrix, only 2 jobs will run at the same time and the others will wait for one of the running jobs to finish before starting
         runs-on: ${{ matrix.os }}
         steps:
             - run: node -v
+            - run: echo '${{toJson(matrix) }}'
             - uses: actions/setup-node@v3
               with:
                 node-version: ${{ matrix.node-version }}
