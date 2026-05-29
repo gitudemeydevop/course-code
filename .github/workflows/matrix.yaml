@@ -14,7 +14,7 @@ on: [push]
 
 jobs:
     node-matrix:
-        continue-on-error: false
+        continue-on-error: false # this will make the workflow fail if any of the matrix runs fail, instead of waiting for all the runs to complete and then marking the workflow as failed if any of the runs have failed
         strategy:
             matrix:
                 os: [ubuntu-latest, windows-latest]
@@ -34,10 +34,13 @@ jobs:
                     - os: ubuntu-latest 
                       node-version: 14 # this will exclude the run that has ubuntu-latest and node version 14 from the matrix and it wont run at all
 
-            fail-fast: false # this will allow all the jobs in the matrix to run even if one of them fails, by default if one job in the matrix fails, the rest of the jobs will be cancelled and marked as failed, but with fail-fast set to false, all the jobs will run and you can see the results of each job in the matrix even if one of them fails
+            fail-fast: true # this will make the workflow fail immediately if any of the matrix runs fail, instead of waiting for all the runs to complete and then marking the workflow as failed if any of the runs have failed
             #max-parallel: 3 # this will limit the number of parallel jobs to 2, even if there are more combinations in the matrix, only 2 jobs will run at the same time and the others will wait for one of the running jobs to finish before starting
         runs-on: ${{ matrix.os }}
         steps:
+            - if: matrix.experimental == true
+              run: exit 1 # this will make the job fail if the experimental key is set to true in the matrix combination
+              
             - run: node -v
             - run: echo '${{toJson(matrix) }}'
             - uses: actions/setup-node@v3
