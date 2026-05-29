@@ -8,7 +8,7 @@ jobs:
     pr-comment:
         runs-on: ubuntu-latest
         permissions: 
-            issues: write
+            pull-requests: write
             
         steps:
             - name: comment on new PR
