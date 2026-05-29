@@ -10,6 +10,7 @@ jobs:
 
             - name: Step 2
               id: step-2
+              continue-on-error: true # this will allow the workflow to continue even if this step fails
               run: exit 1
               
             - name: Runs on step 2Failure
