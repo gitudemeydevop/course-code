@@ -6,7 +6,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: step 1
-              run: sleep 20 
+              run: sleep 90 # this will make the step run for 90 seconds
+              timeout-minutes: 1 # this will set a timeout of 1 minute for this step, if the step takes longer than 1 minute to complete, it will be automatically cancelled and marked as failed
 
             - name: Step 2
               id: step-2
