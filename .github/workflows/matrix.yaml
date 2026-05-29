@@ -13,7 +13,7 @@ jobs:
                     - os: ubuntu-latest 
                       is-ubuntu: true # this will just add a  new key to all ubuntu runs  : is-ubuntu == true ( this will merge)
                     - os: macos-latest
-                      node-version: 15 # this will add a new run with macos-latest and node version 15 ' wont merge like the other one cause we never had an item that runs on mac os  so it creates one . 
+                      node-version: 20 # this will add a new run with macos-latest and node version 15 ' wont merge like the other one cause we never had an item that runs on mac os  so it creates one . 
                     - experimental: false   # wont override and wont add a new run  but it will be merged with all  the original matrix combinations
                     - os: ubuntu-latest
                       node-version: 16 
